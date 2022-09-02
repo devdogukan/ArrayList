@@ -100,8 +100,13 @@ class Array{
 			return size() == 0;
 		}
 		void remove(){
-			count--;
-			shrink();
+			if(!this->isEmpty()){
+				count--;
+				shrink();
+			}
+			else{
+				throw "Error : ArrayIsEmpty";
+			}
 		}
 		void remove(int index){
 			if(index < count && index >= 0){
