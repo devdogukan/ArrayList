@@ -48,13 +48,23 @@ int main(){
 	age.print();
 
 	cout<<endl;
+	
+	age.insert(0, 999);  // .insert(index, value)
+	age.print();
 
-	age.remove(age.size() - 1);
+	cout<<endl;
+
+	age.remove(age.size() - 1);  // or age.remove(-1)
 	age.print();
 
 	cout<<endl;
 
 	age.remove();
+	age.print();
+
+	cout<<endl;
+
+	age.remove(-5);
 	age.print();
 	
 	return 0;
