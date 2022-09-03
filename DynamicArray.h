@@ -100,11 +100,16 @@ class Array{
 			return size() == 0;
 		}
 		void remove(){
-			this->remove(this->size() - 1);
+			this->remove(-1);
 			shrink();
 		}
 		void remove(int index){
-			if(index < count && index >= 0){
+			if(index < count && index >= (count * -1)){
+
+				if(index < 0){
+					index = this->size() + index;
+				}
+
 				for(int i=index;i<count;i++){
 					items[i] = items[i+1];
 				}
@@ -152,7 +157,7 @@ class Array{
 				newItem[i] = items[i];
 			}
 			delete[] items;
-			items = newItem; // items artik newItem`in konumunu isaret ediyor
+			items = newItem;
 		}
 		void shrink(){
 			if(size() <= len/2){
