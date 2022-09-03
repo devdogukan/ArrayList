@@ -92,7 +92,7 @@ class Array{
 				return *(this->begin()+index);
 			}
 		}
-		E& operator[](int index){ // Array.get() -> Array[] -- // read only -- E& read and write
+		E& operator[](int index){ // Array.get() -> Array[] -- // E = read only -- E& = read and write
 			return this->get(index);
 		}
 	
