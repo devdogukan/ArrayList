@@ -3,20 +3,20 @@
 using namespace std;
 
 template<class E>
-class ArrayList {
+class Array{
 	
 private:
 	int len;
 	int count;
-	E *items = NULL; // or nullptr
+	E *items = NULL;
 
 public:
-	ArrayList() {
+	Array(){
 		len = 2;
 		count = 0;
 		items = new E[len];
 	}
-	ArrayList(const ArrayList& array) { // Copy constructor - Deep copy
+	Array(const Array& array) { // Copy constructor - Deep copy
 
 		this->len = array.len;
 		this->count = array.count;
@@ -26,7 +26,7 @@ public:
 			this->items[i] = array.items[i];
 		}
 	}
-	~ArrayList() {
+	~Array(){
 		this->reset();
 	}
 	
@@ -41,7 +41,7 @@ public:
 		if(index >= 0 && index <= length()){ 
 			this->add(item);
 			for(int i=this->size()-1;i>index;i--){
-				int temp = items[i];
+				E temp = items[i];
 				items[i] = items[i-1];
 				items[i-1] = temp;
 			}
@@ -49,8 +49,10 @@ public:
 	}
 
 	void insert(const E *index, E item){
-		int i = index - this->begin();
-		insert(i, item);
+		if(index >= this->begin() && index <= this->end()) {
+			int i = index - this->begin();
+			insert(i, item);
+		}
 	}
 	
 	void insert(int index, int n, E item){
@@ -61,27 +63,40 @@ public:
 
 	void insert(const E *index, const E *first, const E *last){
 		
-		int pos = index - this->begin();
+		if(index >= this->begin() && index <= this->end()) {
+			int pos = index - this->begin();
 		
-		insert(pos, first, last);
+			insert(pos, first, last);
+		}
 		
 	}
 
 	void insert(int index, const E *first, const E *last){
 		
-		int len = last - first;
-		int start = first - this->begin();
-		E *temp = new E[len];
-		
-		for(int i = 0; i < len; i++){
-			temp[i] = items[start++];
-		}
-		
-		start = 0;
-		
-		while(first != last){
-			insert(index++, temp[start++]);
-			first++;
+		if(index >= 0 && index <= length()){
+
+			if(first >= this->begin() && last <= this->end()){
+				
+				int len = last - first;
+				int start = first - this->begin();
+				E *temp = new E[len];
+				
+				for(int i = 0; i < len; i++){
+					temp[i] = items[start++];
+				}
+				
+				start = 0;
+				
+				while(first != last){
+					insert(index++, temp[start++]);
+					first++;
+				}
+			}
+			else {
+				while(first != last){
+					insert(index++, *first++);
+				}
+			}
 		}
 	}
 	
@@ -112,7 +127,7 @@ public:
 		return -1;
 	}
 	
-	E& get(int index){ 
+	E& get(int index){ // E read only -- E& read and write
 		if(this->isEmpty()){
 			throw "Error : ArrayIsEmpty";
 		}
@@ -126,7 +141,7 @@ public:
 			return *(this->begin()+index);
 		}
 	}
-	E& operator[](int index){ 
+	E& operator[](int index){
 		return this->get(index);
 	}
 
@@ -195,7 +210,7 @@ private:
 			newItem[i] = items[i];
 		}
 		delete[] items;
-		items = newItem; // items artik newItem`in konumunu isaret ediyor
+		items = newItem;
 	}
 	void shrink(){
 		if(size() <= len/2){
