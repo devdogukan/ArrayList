@@ -1,24 +1,85 @@
-# ArrayList
+# **ArrayList**
 
-ArrayList, static olmayan ve yapılan işlemelere göre boyutu artan ve azalan bir yapıdır. 
+### **ArrayList, static olmayan ve yapılan işlemelere göre boyutu artan veya azalan bir yapıdır.**
 
-## Kullanılan fonlsiyonlar
+<br/>
 
-`add` <br> 
-`insert` <br>
-`print` <br> 
-`indexOf` <br> 
-`get` <br>
-`isEmpty` <br> 
-`remove` <br> 
-`clear` <br> 
-`front` <br> 
-`back` <br> 
-`end` <br> 
-`begin` <br> 
-`growth` <br> 
-`shrink` <br> 
-`reset` <br>
+> ## **Kullanılan fonksiyonlar**
+
+### **`add`** <br> 
+### **`insert`** <br>
+### **`print`** <br> 
+### **`indexOf`** <br> 
+### **`get`** <br>
+### **`isEmpty`** <br> 
+### **`remove`** <br> 
+### **`clear`** <br> 
+### **`front`** <br> 
+### **`back`** <br> 
+### **`end`** <br> 
+### **`begin`** <br> 
+### **`growth`** <br> 
+### **`shrink`** <br> 
+### **`reset`** <br>
+
+<br/><br/>
+
+> # **Kullanım örnekleri**
+
+<br/>
+
+<img src="img/AllList.png">
+
+<br/>
+
+> ## **`add` fonksiyonu**
+<img src="img/AddF.png"/>
+
+<br/>
+
+> ## **`insert` fonksiyonu**
+<img src="img/insertF.png"/>
+<br/>
+<img src="img/insertOut.png"/>
+
+<br/>
+
+> ## **`indexOf` fonksiyonu**
+<img src="img/indexOfF.png"/>
+
+<br/>
+
+> ## **`get` fonksiyonu**
+<img src="img/getF.png"/>
+
+<br/>
+
+<br/>
+
+> ## **`isEmpty` fonksiyonu**
+<img src="img/isEmptyF.png"/>
+
+<br/>
+
+<br/>
+
+> ## **`remove` fonksiyonu**
+<img src="img/removeF.png"/>
+<br/>
+<img src="img/removeOut.png"/>
+
+<br/>
+
+<br/>
+
+> ## **`clear` fonksiyonu**
+<img src="img/clearF.png"/>
+<br/>
+<img src="img/clearOut.png"/>
+
+<br/>
+
+<br/><br/>
 
 ## Güncellemeler
 
