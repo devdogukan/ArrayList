@@ -3,7 +3,7 @@
 using namespace std;
 
 template<class E>
-class Array{
+class ArrayList {
 	
 private:
 	int len;
@@ -11,12 +11,12 @@ private:
 	E *items = NULL;
 
 public:
-	Array(){
+	ArrayList() {
 		len = 2;
 		count = 0;
 		items = new E[len];
 	}
-	Array(const Array& array) { // Copy constructor - Deep copy
+	ArrayList(const Array& array) { // Copy constructor - Deep copy
 
 		this->len = array.len;
 		this->count = array.count;
@@ -26,7 +26,7 @@ public:
 			this->items[i] = array.items[i];
 		}
 	}
-	~Array(){
+	~ArrayList() {
 		this->reset();
 	}
 	
