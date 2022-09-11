@@ -88,7 +88,7 @@
 `remove` fonksiyonu negatife index ile çalışır hale geldi. <br>
 
 ## v1.2
-v1.1 sürümünde eklenen "insert" methodlarının hataları düzeltildi. <br>
+v1.1 sürümünde eklenen `insert` methodlarının hataları düzeltildi. <br>
 
 ## v1.3
 v1.1 süeümünde eklenen `insert` methodlari daha kararlı hale getirildi. <br>
