@@ -12,7 +12,11 @@
 ### **`indexOf`** <br> 
 ### **`get`** <br>
 ### **`isEmpty`** <br> 
-### **`remove`** <br> 
+### **`remove`** <br>
+### **`pop`** <br>
+### **`copy`** <br> 
+### **`contains`** <br> 
+### **`counter`** <br> 
 ### **`clear`** <br> 
 ### **`front`** <br> 
 ### **`back`** <br> 
@@ -72,6 +76,24 @@
 
 <br/>
 
+> ## **`pop` fonksiyonu**
+<img src="img/pop.png"/>
+<br/>
+<img src="img/popOut.png"/>
+
+<br/>
+
+<br/>
+
+> ## **`copy` fonksiyonu**
+<img src="img/copyF.png"/>
+<br/>
+<img src="img/copyOut.png"/>
+
+<br/>
+
+<br/>
+
 > ## **`clear` fonksiyonu**
 <img src="img/clearF.png"/>
 <br/>
@@ -84,11 +106,21 @@
 ## Güncellemeler
 
 ## v1.1
-İki yeni `insert` methodu eklendi.  *Test aşamasındalar*. <br>
-`remove` fonksiyonu negatife index ile çalışır hale geldi. <br>
+📌 İki yeni `insert` methodu eklendi.  *Test aşamasındalar*. 
+<br>
+📌 `remove` fonksiyonu negative index ile çalışır hale geldi. 
+<br>
 
 ## v1.2
-v1.1 sürümünde eklenen `insert` methodlarının hataları düzeltildi. <br>
+📌 v1.1 sürümünde eklenen `insert` methodlarının hataları düzeltildi. 
+<br>
 
 ## v1.3
-v1.1 süeümünde eklenen `insert` methodlari daha kararlı hale getirildi. <br>
+📌 v1.1 sürümünde eklenen `insert` methodlari daha kararlı hale getirildi. 
+<br>
+
+## v1.4 
+📌 `pop`, `copy`, `contains` ve `counter` fonksiyonlari eklendi.
+<br/>
+📌 `remove` ile `pop`  fonksiyonlari gorevlerini degiştiler.
+<br/>

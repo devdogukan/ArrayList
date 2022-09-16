@@ -1,9 +1,9 @@
 #include <iostream>
 
-using namespace std;
+using std::cout;
 
 template<class E>
-class ArrayList {
+class ArrayList	{
 	
 private:
 	int len;
@@ -12,35 +12,39 @@ private:
 
 public:
 	ArrayList() {
-		len = 2;
+		len = 10;
 		count = 0;
 		items = new E[len];
 	}
-	ArrayList(const Array& array) { // Copy constructor - Deep copy
-
-		this->len = array.len;
-		this->count = array.count;
-		this->items = new E[len];
-
-		for(int i = 0; i < array.count; i++){
-			this->items[i] = array.items[i];
-		}
+	ArrayList(int len) {
+		count = 0;
+		this->len = len;
+		items = new E[len];
+	}
+	ArrayList(const ArrayList& array) {
+		
+		copy(array);
+		
 	}
 	~ArrayList() {
-		this->reset();
+		reset();
 	}
 	
 	void add(E item){
-		if(len == count){
-			growth();
-		}
+		
+		if(size() >= length()) growth();
+		
 		items[count++] = item;
 	}
 	
+	// ! ------------------- insert methods ----------- //
+	
 	void insert(int index, E item){
-		if(index >= 0 && index <= length()){ 
-			this->add(item);
-			for(int i=this->size()-1;i>index;i--){
+		if(index >= 0 && index <= size()) { 
+			
+			add(item);
+			
+			for(int i = size()-1; i > index; i--){
 				E temp = items[i];
 				items[i] = items[i-1];
 				items[i-1] = temp;
@@ -49,16 +53,20 @@ public:
 	}
 
 	void insert(const E *index, E item){
-		if(index >= this->begin() && index <= this->end()) {
+		
+		if(index >= begin() && index <= end()) {
+			
 			int i = index - this->begin();
 			insert(i, item);
+			
 		}
 	}
 	
 	void insert(int index, int n, E item){
-		for(int i=0;i<n;i++){
+		
+		for(int i=0;i<n;i++)
 			insert(index+i,item);
-		}
+
 	}
 
 	void insert(const E *index, const E *first, const E *last){
@@ -73,23 +81,22 @@ public:
 
 	void insert(int index, const E *first, const E *last){
 		
-		if(index >= 0 && index <= length()){
+		if(index >= 0 && index <= size()){
 
-			if(first >= this->begin() && last <= this->end()){
+			if(first >= begin() && last <= end()){
 				
-				int len = last - first;
-				int start = first - this->begin();
+				int to = last - first;
+				int start = first - begin();
 				E *temp = new E[len];
 				
-				for(int i = 0; i < len; i++){
+				for(int i = 0; i < to; i++){
 					temp[i] = items[start++];
 				}
 				
 				start = 0;
 				
-				while(first != last){
+				while(first++ != last){
 					insert(index++, temp[start++]);
-					first++;
 				}
 			}
 			else {
@@ -100,133 +107,218 @@ public:
 		}
 	}
 	
-	void print(){
-		cout<<"[";
-		for(int i=0;i<size();i++){
-			cout<<items[i];
-			if(i+1 < size()){
-				cout<<", ";
-			}
+	// ------------------- insert methods ----------- !//
+	
+	int counter(E item) {
+		
+		int temp = 0;
+		
+		for(int i = 0; i < size(); i++)
+			if(items[i] == item) 
+				temp++;
+		
+		return temp;	
+	}
+	
+	bool contains(E item) {
+		
+		for(int i = 0; i < size(); i++)
+			if(items[i] == item) return true;
+		
+		return false;
+	}
+	
+	void copy(const ArrayList& array) {
+		
+		this->len = array.len;
+		this->count = array.count;
+		this->items = new E[len];
+
+		for(int i = 0; i < array.count; i++){
+			this->items[i] = array.items[i];
 		}
+	}
+	
+	void print(){
+		
+		cout<<"[";
+		
+		for(int i = 0; i < size(); i++){
+			
+			cout<<items[i];
+			if(i+1 < size()) { cout<<", "; }
+		}
+		
 		cout<<"]";
 	}
 	
-	int size(){
-		return count;
-	}
-	int length(){
-		return len;
-	}
-	
 	int indexOf(E item){
-		for(int i=0;i<size();i++){
-			if(items[i] == item){
-				return i;
-			}
-		}
+		
+		for(int i = 0; i < size(); i++) 
+			if(items[i] == item) return i;
+		
 		return -1;
 	}
 	
+	// !------------------- get methods ----------- !//
+	
 	E& get(int index){ // E read only -- E& read and write
-		if(this->isEmpty()){
+		if(isEmpty()){
 			throw "Error : ArrayIsEmpty";
 		}
 		else if(size() <= index){
 			throw "Error : IllegalIndex";
 		}
 		else if(index < 0){
-			return *(this->end()+index);
+			return *(end()+index);
 		}
-		else{
-			return *(this->begin()+index);
+		else if(index >= 0){
+			return *(begin()+index);
 		}
 	}
-	E& operator[](int index){
-		return this->get(index);
+	E& operator[](int index){ // Array.get() -> Array[] -- // read only -- E& read and write
+		return get(index);
 	}
+	
+	// ------------------- get methods ----------- !//
+	
+	// !------------------- remove methods ----------- //
+	
+	bool remove(E item) {
+		
+		int index = indexOf(item);
+		
+		if(index != -1) {
+			pop(index);
+			return true;
+		}
 
-	bool isEmpty(){
-		return size() == 0;
+		return false;
 	}
-	void remove(){
-		remove(-1);
+	
+	bool remove(E item, int to) {
+		
+		int timer = counter(item);
+		
+		if(to > timer || timer == 0) return false;
+		
+		while(to-- > 0) {
+			remove(item);
+		}
+
+		return true;
 	}
-	void remove(const E *index){
-		int i = index == this->end() ? -1 : index - this->begin();
-		remove(i);
+	
+	// ------------------- remove methods -----------! //
+	
+	// !------------------- pop methods ----------- //
+	
+	E& pop(){
+		return pop(-1);
 	}
-	void remove(const E *first, const E* last){
-		int i = first - this->begin();
-		while(first++ != last){
-			remove(i);
+	
+	E& pop(const E *index){
+		
+		if(index != end()) {
+			
+			int i = index - begin();
+			
+			return pop(i);	
 		}
 	}
 	
-	void remove(int index){
+	void pop(const E *first, const E* last){
+		
+		int i = first - begin();
+		
+		while(first++ != last){
+			
+			pop(i);
+			
+		}
+	}
+	
+	E& pop(int index){  
+		
 		if(index < count && index >= (count * -1)){
 
 			if(index < 0){
-				index = this->size() + index;
+				index = size() + index;
 			}
+			
+			E *oldValue = new E[1];
+			oldValue[0] = items[index];
 
-			for(int i=index;i<count;i++){
+			for(int i = index; i < size() - 1; i++){ // HATA = i < count
 				items[i] = items[i+1];
 			}
+			
 			count--;
-			shrink();
+			
+			if(size() <= (int)(length() / 3)) shrink();
+			
+			return *oldValue;
 		}
 		else{
 			throw "Error : IllegalArgumentException";
-		}
-		
+		}	
 	}
-	E front(){
-		if(isEmpty()){
-			throw "Error : ArrayIsEmpty";
-		}
-		return items[0];
-	}
-	E back(){
-		if(isEmpty()){
-			throw "Error : ArrayIsEmpty";
-		}
-		return items[size() - 1];
-	}
-	E* begin(){
-		return items;
-	}
-	E* end(){
-		return items + size();
-	}
+	// ------------------- pop methods -----------! //
+	
+	bool isEmpty() { return size() == 0; }
+	
 	void clear(){
 		reset();
 		items = new E[len];
 	}
+	
+	
+	E front(){
+		if(isEmpty()) { throw "Error : ArrayIsEmpty"; }
+		
+		return items[0];
+	}
+	
+	E back(){
+		if(isEmpty()) { throw "Error : ArrayIsEmpty"; }
+		
+		return items[size() - 1];
+	}
+	
+	E* begin() { return items; }
+	
+	E* end() { return items + size(); }
+	
+	int size() { return count; }
+	
 private:
+	int length() { return len; }
+	
 	void growth(){
-		len = len*2;
+		len = len * 2;
+		swap();
+	}
+	void shrink(){
+		len = len / 2;
+		swap();
+	}
+	
+	void swap() {
+		
 		E *newItem = new E[len];
-		for(int i=0;i<size();i++){
+		
+		for(int i = 0; i < size(); i++){
 			newItem[i] = items[i];
 		}
+		
 		delete[] items;
 		items = newItem;
 	}
-	void shrink(){
-		if(size() <= len/2){
-			len /= 2;
-			E *newItem = new E[len];
-			for(int i=0;i<size();i++){
-				newItem[i] = items[i];
-			}
-			delete[] items;
-			items = newItem;
-		}
-	}
 
-	void reset(int count = 0,int len = 2){
+	void reset(int count = 0,int len = 2) {
+		
 		delete[] items;
-		items = NULL; // or nullptr
+		items = NULL;
 		this->count = count;
 		this->len = len;
 	}
