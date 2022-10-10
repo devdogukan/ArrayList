@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ArrayList.h"
+#include "../ArrayList.h"
 using namespace std;
 
 int main() {
@@ -13,7 +13,9 @@ int main() {
 
     cout << endl;
 
-    cout << num.pop() << endl;
+    int a = num.pop();
+
+    cout << a << endl;
 
     num.print();
 
