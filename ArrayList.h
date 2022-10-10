@@ -8,11 +8,11 @@ class ArrayList	{
 private:
 	int len;
 	int count;
-	E *items = NULL;
+	E *items = nullptr;
 
 public:
 	ArrayList() {
-		len = 10;
+		len = 2;
 		count = 0;
 		items = new E[len];
 	}
@@ -213,11 +213,11 @@ public:
 	
 	// !------------------- pop methods ----------- //
 	
-	E& pop(){
+	E pop(){
 		return pop(-1);
 	}
 	
-	E& pop(const E *index){
+	E pop(const E *index){
 		
 		if(index != end()) {
 			
@@ -238,7 +238,7 @@ public:
 		}
 	}
 	
-	E& pop(int index){  
+	E pop(int index){  
 		
 		if(index < count && index >= (count * -1)){
 
@@ -246,8 +246,8 @@ public:
 				index = size() + index;
 			}
 			
-			E *oldValue = new E[1];
-			oldValue[0] = items[index];
+			// E *oldValue = new E[1];
+			E oldValue = items[index];
 
 			for(int i = index; i < size() - 1; i++){ // HATA = i < count
 				items[i] = items[i+1];
@@ -257,7 +257,7 @@ public:
 			
 			if(size() <= (int)(length() / 3)) shrink();
 			
-			return *oldValue;
+			return oldValue;
 		}
 		else{
 			throw "Error : IllegalArgumentException";
@@ -310,15 +310,15 @@ private:
 		for(int i = 0; i < size(); i++){
 			newItem[i] = items[i];
 		}
-		
 		delete[] items;
 		items = newItem;
+		newItem = nullptr;
 	}
 
 	void reset(int count = 0,int len = 2) {
 		
 		delete[] items;
-		items = NULL;
+		items = nullptr;
 		this->count = count;
 		this->len = len;
 	}
